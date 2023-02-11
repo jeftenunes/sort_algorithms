@@ -3,11 +3,16 @@ defmodule SortAlgorithms.SelectionSort do
 
   def sort(list), do: do_sort(list) |> do_sort()
 
-  defp do_sort([]), do: []
+  defp do_sort(list) do
+    do_selection(list, [])
+  end
 
-  defp do_sort(list = [hd | tl]) do
+  defp do_selection([], acc), do: acc
+  defp do_selection([min | []], acc), do: acc ++ [min]
+
+  defp do_selection(list, acc) do
     min = min(list)
-    [min | min(tl)]
+    do_selection(:lists.delete(min, list), acc ++ [min])
   end
 
   defp min([next | []]), do: [next]
